@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### migration data ###
+src/main/resources/db/migration/data/**

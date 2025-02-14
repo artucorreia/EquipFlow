@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: locations
+  devtools:
+    restart:
+      enabled: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/locations_db?createDatabaseIfNotExist=true&useSSL=false
+    username: developer
+    password: 01092209
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+  flyway:
+    path: classpath:db/migration
+    schemas: location

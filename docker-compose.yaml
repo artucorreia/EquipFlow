@@ -1,0 +1,12 @@
+services:
+  # ms locations
+  locations:
+    image: postgres:17-alpine
+    container_name: locations_container
+    environment:
+      - POSTGRES_USER=developer
+      - POSTGRES_PASSWORD=01092209
+      - POSTGRES_DB=locations_db
+    restart: on-failure:2
+    ports:
+      - 5432:5432

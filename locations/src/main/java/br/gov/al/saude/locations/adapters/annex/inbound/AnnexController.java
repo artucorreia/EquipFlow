@@ -22,7 +22,7 @@ import br.gov.al.saude.locations.adapters.annex.inbound.request.UpdateAnnexDTO;
 import br.gov.al.saude.locations.adapters.annex.inbound.response.AnnexDTO;
 import br.gov.al.saude.locations.adapters.annex.inbound.response.ResponseDTO;
 import br.gov.al.saude.locations.application.domain.Annex;
-import br.gov.al.saude.locations.application.ports.annex.inbound.DeleteAnnexByIdInputPort;
+import br.gov.al.saude.locations.application.ports.annex.inbound.DeleteAnnexInputPort;
 import br.gov.al.saude.locations.application.ports.annex.inbound.FindAnnexByIdInputPort;
 import br.gov.al.saude.locations.application.ports.annex.inbound.InsertAnnexInputPort;
 import br.gov.al.saude.locations.application.ports.annex.inbound.UpdateAnnexInputPort;
@@ -35,17 +35,17 @@ public class AnnexController {
   private final FindAnnexByIdInputPort findAnnexByIdInputPort;
   private final InsertAnnexInputPort insertAnnexInputPort;
   private final UpdateAnnexInputPort updateAnnexInputPort;
-  private final DeleteAnnexByIdInputPort deleteAnnexByIdInputPort;
+  private final DeleteAnnexInputPort deleteAnnexInputPort;
   private final AnnexMapperInbound annexMapperInbound;
 
   @Autowired
   public AnnexController(FindAnnexByIdInputPort findAnnexByIdInputPort, InsertAnnexInputPort insertAnnexInputPort,
-      UpdateAnnexInputPort updateAnnexInputPort, DeleteAnnexByIdInputPort deleteAnnexByIdInputPort,
+      UpdateAnnexInputPort updateAnnexInputPort, DeleteAnnexInputPort deleteAnnexInputPort,
       AnnexMapperInbound annexMapperInbound) {
     this.findAnnexByIdInputPort = findAnnexByIdInputPort;
     this.insertAnnexInputPort = insertAnnexInputPort;
     this.updateAnnexInputPort = updateAnnexInputPort;
-    this.deleteAnnexByIdInputPort = deleteAnnexByIdInputPort;
+    this.deleteAnnexInputPort = deleteAnnexInputPort;
     this.annexMapperInbound = annexMapperInbound;
   }
 
@@ -78,9 +78,9 @@ public class AnnexController {
 
   @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ResponseDTO> delete(@PathVariable Long id) {
-    deleteAnnexByIdInputPort.delete(id);
+    deleteAnnexInputPort.delete(id);
     return ResponseEntity
-        .status(HttpStatus.NO_CONTENT)
+        .status(HttpStatus.OK)
         .body(new ResponseDTO(AnnexConstant.MESSAGE_204, AnnexConstant.STATUS_204, LocalDateTime.now()));
   }
 

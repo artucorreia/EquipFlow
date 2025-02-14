@@ -1,2 +1,2 @@
-# support-source
-Sistema criado para o monitoramente e emissão de relatórios sobre equipamentos e chamados na SESAU
+# EquipFlow
+Sistema criado para controle de equipamentos, gestão de solicitações para empresas terceirizadas e emissão de relatórios na SESAU

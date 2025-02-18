@@ -1,11 +1,11 @@
-package br.gov.al.saude.locations.adapters.annex.inbound.mapper;
+package br.gov.al.saude.locations.adapters.annex.inbound.controller.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import br.gov.al.saude.locations.adapters.annex.inbound.request.CreateAnnexDTO;
-import br.gov.al.saude.locations.adapters.annex.inbound.request.UpdateAnnexDTO;
-import br.gov.al.saude.locations.adapters.annex.inbound.response.AnnexDTO;
+import br.gov.al.saude.locations.adapters.annex.inbound.controller.request.CreateAnnexDTO;
+import br.gov.al.saude.locations.adapters.annex.inbound.controller.request.UpdateAnnexDTO;
+import br.gov.al.saude.locations.adapters.annex.inbound.controller.response.AnnexDTO;
 import br.gov.al.saude.locations.application.domain.Annex;
 
 @Mapper(componentModel = "spring")

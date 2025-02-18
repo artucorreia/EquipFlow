@@ -1,4 +1,4 @@
-package br.gov.al.saude.locations.adapters.annex.inbound.response;
+package br.gov.al.saude.locations.adapters.annex.inbound.controller.response;
 
 import java.time.LocalDateTime;
 

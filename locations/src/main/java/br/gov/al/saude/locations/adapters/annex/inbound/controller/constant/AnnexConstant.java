@@ -1,4 +1,4 @@
-package br.gov.al.saude.locations.adapters.annex.inbound.constant;
+package br.gov.al.saude.locations.adapters.annex.inbound.controller.constant;
 
 public class AnnexConstant {
 

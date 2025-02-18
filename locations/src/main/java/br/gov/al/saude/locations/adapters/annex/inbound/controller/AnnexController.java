@@ -1,4 +1,4 @@
-package br.gov.al.saude.locations.adapters.annex.inbound;
+package br.gov.al.saude.locations.adapters.annex.inbound.controller;
 
 import java.time.LocalDateTime;
 
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.gov.al.saude.locations.adapters.annex.inbound.constant.AnnexConstant;
-import br.gov.al.saude.locations.adapters.annex.inbound.mapper.AnnexMapperInbound;
-import br.gov.al.saude.locations.adapters.annex.inbound.request.CreateAnnexDTO;
-import br.gov.al.saude.locations.adapters.annex.inbound.request.UpdateAnnexDTO;
-import br.gov.al.saude.locations.adapters.annex.inbound.response.AnnexDTO;
+import br.gov.al.saude.locations.adapters.annex.inbound.controller.constant.AnnexConstant;
+import br.gov.al.saude.locations.adapters.annex.inbound.controller.mapper.AnnexMapperInbound;
+import br.gov.al.saude.locations.adapters.annex.inbound.controller.response.AnnexDTO;
+import br.gov.al.saude.locations.adapters.annex.inbound.controller.request.CreateAnnexDTO;
+import br.gov.al.saude.locations.adapters.annex.inbound.controller.request.UpdateAnnexDTO;
 import br.gov.al.saude.locations.adapters.common.response.ResponseDTO;
 import br.gov.al.saude.locations.application.domain.Annex;
 import br.gov.al.saude.locations.application.ports.annex.inbound.DeleteAnnexInputPort;
@@ -106,7 +106,8 @@ public class AnnexController {
       @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content),
       @ApiResponse(responseCode = "500", description = "Internal Error", content = @Content)
   })
-  public ResponseEntity<ResponseDTO> update(@PathVariable Long id, @Valid @RequestBody UpdateAnnexDTO updateAnnexDTO) {
+  public ResponseEntity<ResponseDTO> update(@PathVariable Long id,
+      @Valid @RequestBody UpdateAnnexDTO updateAnnexDTO) {
     Annex updatedAnnex = annexMapperInbound.toDomain(updateAnnexDTO);
     updateAnnexInputPort.update(id, updatedAnnex);
     return ResponseEntity

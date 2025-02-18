@@ -1,4 +1,4 @@
-package br.gov.al.saude.locations.adapters.annex.inbound.request;
+package br.gov.al.saude.locations.adapters.annex.inbound.controller.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

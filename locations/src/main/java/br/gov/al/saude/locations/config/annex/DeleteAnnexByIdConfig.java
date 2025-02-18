@@ -1,4 +1,4 @@
-package br.gov.al.saude.locations.config;
+package br.gov.al.saude.locations.config.annex;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

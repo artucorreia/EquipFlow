@@ -18,6 +18,7 @@ import br.gov.al.saude.locations.application.domain.exception.AnnexAlreadyExists
 import br.gov.al.saude.locations.application.domain.exception.ArgumentNotValidExceptionResponse;
 import br.gov.al.saude.locations.application.domain.exception.ExceptionResponse;
 import br.gov.al.saude.locations.application.domain.exception.ResourceNotFoundException;
+import br.gov.al.saude.locations.application.domain.exception.SectorAlreadyExistsException;
 
 @ControllerAdvice
 @RestController
@@ -78,4 +79,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
   }
+
+  @ExceptionHandler(SectorAlreadyExistsException.class)
+  public final ResponseEntity<ExceptionResponse> handleSectorAlreadyExistsExceptions(Exception exception,
+      WebRequest request) {
+    ExceptionResponse response = new ExceptionResponse.Builder()
+        .title(exception.getMessage())
+        .status(HttpStatus.BAD_REQUEST.toString())
+        .path(request.getDescription(false))
+        .timestamp(LocalDateTime.now())
+        .build();
+
+    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+  }
+
 }

@@ -26,7 +26,7 @@ public class UpdateAnnexUseCase implements UpdateAnnexInputPort {
 
   @Override
   public void update(Long id, Annex updatedAnnex) {
-    LOGGER.info(String.format("Updating annex id: '%s'", id));
+    LOGGER.info(String.format("Updating an annex with id: '%s'", id));
     Annex annex = findAnnexByIdInputPort.find(id);
     Optional<Annex> optionalAnnex = findAnnexByNameInputPort.find(updatedAnnex.getName());
     if (optionalAnnex.isPresent())

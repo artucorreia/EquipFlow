@@ -1,10 +1,16 @@
 package br.gov.al.saude.locations.adapters.annex.inbound.response;
 
-public class AnnexDTO {
+import java.time.LocalDateTime;
+
+import br.gov.al.saude.locations.adapters.common.response.BaseDTO;
+
+public class AnnexDTO extends BaseDTO {
   private Long id;
   private String name;
 
-  public AnnexDTO(Long id, String name) {
+  public AnnexDTO(LocalDateTime createdAt, String createdBy, LocalDateTime updatedAt, String updatedBy, Boolean deleted,
+      Long id, String name) {
+    super(createdAt, createdBy, updatedAt, updatedBy, deleted);
     this.id = id;
     this.name = name;
   }

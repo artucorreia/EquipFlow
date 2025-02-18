@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS machines_exits (
+  id SERIAL PRIMARY KEY,
+  sector_id INT NOT NULL,
+  technician VARCHAR(100) NOT NULL,
+  solution_description VARCHAR(255) NOT NULL,
+  entry_id INT NOT NULL,
+  exit_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+);

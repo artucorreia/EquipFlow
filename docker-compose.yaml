@@ -2,7 +2,7 @@ services:
   # ms locations
   locations:
     image: postgres:17-alpine
-    container_name: locations_container
+    container_name: locations_db
     environment:
       - POSTGRES_USER=developer
       - POSTGRES_PASSWORD=01092209
@@ -10,3 +10,15 @@ services:
     restart: on-failure:2
     ports:
       - 2345:5432
+
+  # ms machines
+  machines:
+    image: postgres:17-alpine
+    container_name: machines_db
+    environment:
+      - POSTGRES_USER=developer
+      - POSTGRES_PASSWORD=01092209
+      - POSTGRES_DB=machines_db
+    restart: on-failure:2
+    ports:
+      - 2355:5432

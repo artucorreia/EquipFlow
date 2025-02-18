@@ -25,7 +25,6 @@ springdoc:
     path: /api-docs
   swagger-ui:
     use-root-path: true
-    # path: /swagger-ui.html
     operationsSorter: method
     tagsSorter: alpha
     tryItOutEnabled: true

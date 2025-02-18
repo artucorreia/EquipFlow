@@ -1,6 +1,7 @@
 package br.gov.al.saude.locations.adapters.sector.inbound.controller;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,12 +22,15 @@ import br.gov.al.saude.locations.adapters.sector.inbound.controller.mapper.Secto
 import br.gov.al.saude.locations.adapters.sector.inbound.controller.request.CreateSectorDTO;
 import br.gov.al.saude.locations.adapters.sector.inbound.controller.request.UpdateSectorDTO;
 import br.gov.al.saude.locations.adapters.sector.inbound.controller.response.SectorDTO;
+import br.gov.al.saude.locations.adapters.sector.inbound.controller.response.SectorSimpleDTO;
 import br.gov.al.saude.locations.application.domain.Sector;
 import br.gov.al.saude.locations.application.ports.sector.inbound.DeleteSectorInputPort;
+import br.gov.al.saude.locations.application.ports.sector.inbound.FindAllSectorsInputPort;
 import br.gov.al.saude.locations.application.ports.sector.inbound.FindSectorByIdInputPort;
 import br.gov.al.saude.locations.application.ports.sector.inbound.InsertSectorInputPort;
 import br.gov.al.saude.locations.application.ports.sector.inbound.UpdateSectorInputPort;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -41,16 +45,19 @@ import jakarta.validation.Valid;
 public class SectorController {
 
   private final FindSectorByIdInputPort findSectorByIdInputPort;
+  private final FindAllSectorsInputPort findAllSectorsInputPort;
   private final InsertSectorInputPort insertSectorInputPort;
   private final UpdateSectorInputPort updateSectorInputPort;
   private final DeleteSectorInputPort deleteSectorInputPort;
   private final SectorMapperInbound sectorMapperInbound;
 
   @Autowired
-  public SectorController(FindSectorByIdInputPort findSectorByIdInputPort, InsertSectorInputPort insertSectorInputPort,
+  public SectorController(FindSectorByIdInputPort findSectorByIdInputPort,
+      FindAllSectorsInputPort findAllSectorsInputPort, InsertSectorInputPort insertSectorInputPort,
       UpdateSectorInputPort updateSectorInputPort, DeleteSectorInputPort deleteSectorInputPort,
       SectorMapperInbound sectorMapperInbound) {
     this.findSectorByIdInputPort = findSectorByIdInputPort;
+    this.findAllSectorsInputPort = findAllSectorsInputPort;
     this.insertSectorInputPort = insertSectorInputPort;
     this.updateSectorInputPort = updateSectorInputPort;
     this.deleteSectorInputPort = deleteSectorInputPort;
@@ -58,7 +65,6 @@ public class SectorController {
   }
 
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-
   @Operation(summary = "Find a sector by id", description = "Find a sector by id", tags = { "Sectors" }, method = "GET")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Success", content = @Content(schema = @Schema(implementation = SectorDTO.class))),
@@ -73,6 +79,44 @@ public class SectorController {
     return ResponseEntity
         .status(HttpStatus.OK)
         .body(sectorDTO);
+  }
+
+  // NOTE: Find all sectors with all fields
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  @Operation(summary = "Find all sectors", description = "Find all sectors", tags = { "Sectors" }, method = "GET")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Success", content = @Content(array = @ArraySchema(schema = @Schema(implementation = SectorSimpleDTO.class)))),
+      @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+      @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content),
+      @ApiResponse(responseCode = "500", description = "Internal Error", content = @Content)
+  })
+  public ResponseEntity<List<SectorDTO>> findAll() {
+    List<Sector> sectors = findAllSectorsInputPort.find();
+    List<SectorDTO> sectorDTOs = sectors.stream().map(sector -> sectorMapperInbound.toDTO(sector))
+        .toList();
+    return ResponseEntity
+        .status(HttpStatus.OK)
+        .body(sectorDTOs);
+  }
+
+  // NOTE: Find all active sectors with less fields
+  // id, name, acronym, annexId
+  @GetMapping(value = "/projection", produces = MediaType.APPLICATION_JSON_VALUE)
+  @Operation(summary = "Find all sectors with a simple projection", description = "Find all sectors with a simple projection", tags = {
+      "Sectors" }, method = "GET")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Success", content = @Content(array = @ArraySchema(schema = @Schema(implementation = SectorSimpleDTO.class)))),
+      @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+      @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content),
+      @ApiResponse(responseCode = "500", description = "Internal Error", content = @Content)
+  })
+  public ResponseEntity<List<SectorSimpleDTO>> findAllBySimpleProjection() {
+    List<Sector> sectors = findAllSectorsInputPort.findBySimpleProjection();
+    List<SectorSimpleDTO> sectorSimpleDTOs = sectors.stream().map(sector -> sectorMapperInbound.toSimpleDTO(sector))
+        .toList();
+    return ResponseEntity
+        .status(HttpStatus.OK)
+        .body(sectorSimpleDTOs);
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

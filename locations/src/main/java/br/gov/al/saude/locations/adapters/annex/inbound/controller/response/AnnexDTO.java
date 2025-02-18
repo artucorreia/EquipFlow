@@ -2,8 +2,11 @@ package br.gov.al.saude.locations.adapters.annex.inbound.controller.response;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import br.gov.al.saude.locations.adapters.common.response.BaseDTO;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AnnexDTO extends BaseDTO {
   private Long id;
   private String name;

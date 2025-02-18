@@ -28,8 +28,5 @@ public class SwaggerConfig {
                 .name("Arthur Correia")
                 .email("arthurcorreia.dev@gmail.com")
                 .url("https://portfolio-artu.web.app/")));
-    // .license(new License()
-    // .name("Licença da API")
-    // .url("https://suaapi.com/licenca")));
   }
 }

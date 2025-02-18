@@ -1,21 +1,16 @@
 package br.gov.al.saude.locations.adapters.sector.inbound.controller.response;
 
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import br.gov.al.saude.locations.adapters.common.response.BaseDTO;
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SectorDTO extends BaseDTO {
+public class SectorSimpleDTO {
+
   private Long id;
   private String name;
   private String acronym;
   private Long annexId;
 
-  public SectorDTO(LocalDateTime createdAt, String createdBy, LocalDateTime updatedAt, String updatedBy,
-      Boolean deleted, Long id, String name, String acronym, Long annexId) {
-    super(createdAt, createdBy, updatedAt, updatedBy, deleted);
+  public SectorSimpleDTO(Long id, String name, String acronym, Long annexId) {
     this.id = id;
     this.name = name;
     this.acronym = acronym;

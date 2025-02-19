@@ -152,7 +152,7 @@ public class EntryEntity extends BaseEntity {
     if (getClass() != obj.getClass()) {
       return false;
     }
-    MachineEntry other = (MachineEntry) obj;
+    EntryEntity other = (EntryEntity) obj;
     if (id == null) {
       if (other.id != null) {
         return false;

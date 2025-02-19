@@ -19,7 +19,7 @@ spring:
     show-sql: false
   flyway:
     path: classpath:db/migration
-    schemas: location
+    schemas: locations
 springdoc:
   api-docs:
     path: /api-docs

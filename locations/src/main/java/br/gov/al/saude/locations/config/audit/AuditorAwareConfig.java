@@ -5,8 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import br.gov.al.saude.locations.audit.AuditorAwareImpl;
-
 @Configuration
 @EnableJpaAuditing
 public class AuditorAwareConfig {
